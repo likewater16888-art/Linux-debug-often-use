@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="工控 Linux（Ubuntu / Debian）部署调试速查：38 个主题章节、224 条去重命令（329 条原始条目），支持智能搜索、故障快速索引、分类过滤与一键复制。">
+  <meta name="theme-color" content="#070b0f">
+  <meta name="color-scheme" content="dark light">
+  <title>工控 Linux 部署调试速查表 · 智能指令库</title>
+
+  <!-- 分享卡片 -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="工控 Linux 部署调试速查表">
+  <meta property="og:title" content="工控 Linux 部署调试速查表 · 智能指令库">
+  <meta property="og:description" content="38 个主题章节、224 条去重命令：智能搜索、故障索引、分类过滤、一键复制。工业相机 / 采集卡 / 串口 / NVIDIA / 驱动与内核。">
+  <meta property="og:url" content="https://likewater16888-art.github.io/Linux-debug-often-use/">
+  <meta property="og:image" content="https://likewater16888-art.github.io/Linux-debug-often-use/assets/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="工控 Linux 部署调试速查表：38 个主题章节、224 条去重命令、智能搜索与故障索引">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="工控 Linux 部署调试速查表 · 智能指令库">
+  <meta name="twitter:description" content="38 个主题章节、224 条去重命令：智能搜索、故障索引、一键复制。">
+  <meta name="twitter:image" content="https://likewater16888-art.github.io/Linux-debug-often-use/assets/preview.png">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='86'%3E%F0%9F%90%A7%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#view">跳到正文</a>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="导航">
+      <a class="brand" href="#/overview">
+        <span class="brand-mark" aria-hidden="true">&gt;_</span>
+        <span class="brand-text">
+          <strong>工控 Linux</strong>
+          <small>DEBUG ATLAS</small>
+        </span>
+      </a>
+
+      <button class="search-trigger" id="searchTrigger" type="button">
+        <span class="search-ico" aria-hidden="true">🔍</span>
+        <span class="search-ph">搜指令 / 症状 / 分类</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+
+      <nav class="nav" aria-label="主导航">
+        <div class="nav-label">总览</div>
+        <a class="nav-item" href="#/overview" data-view="overview">
+          <span class="nav-ico" aria-hidden="true">🗺️</span><span>知识地图</span>
+        </a>
+        <a class="nav-item" href="#/index" data-view="index">
+          <span class="nav-ico" aria-hidden="true">🚨</span><span>故障快速索引</span>
+        </a>
+        <a class="nav-item" href="#/all" data-view="all">
+          <span class="nav-ico" aria-hidden="true">📚</span><span>全量指令</span>
+          <span class="nav-count" id="navCmdCount"></span>
+        </a>
+        <a class="nav-item" href="#/favorites" data-view="favorites">
+          <span class="nav-ico" aria-hidden="true">⭐</span><span>我的收藏</span>
+          <span class="nav-count" id="navFavCount">0</span>
+        </a>
+
+        <div class="nav-label">日常精简版 <b>14</b></div>
+        <div id="navDaily"></div>
+
+        <div class="nav-label">完整版 <b>20</b></div>
+        <div id="navFull"></div>
+
+        <div class="nav-label">安全与规范 <b>4</b></div>
+        <div id="navSafety"></div>
+      </nav>
+
+      <p class="nav-tip">
+        按 <kbd>/</kbd> 或 <kbd>Ctrl</kbd>+<kbd>K</kbd> 智能搜索<br>
+        <kbd>↑</kbd><kbd>↓</kbd> 选择 · <kbd>Enter</kbd> 定位 · <kbd>Esc</kbd> 关闭
+      </p>
+      <div class="sidebar-foot">
+        内容整理自《工控 Linux 部署调试速查表》<br>
+        Ubuntu / Debian · 纯静态 · 可离线打开
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn" id="menuBtn" type="button" aria-label="打开导航" title="打开导航">☰</button>
+        <div class="crumbs" id="crumbs">知识地图 · 总览</div>
+        <button class="top-search" id="topSearch" type="button" aria-label="打开智能搜索">
+          <span aria-hidden="true">🔍</span><span class="top-search-text">搜索指令</span><kbd>Ctrl K</kbd>
+        </button>
+        <div class="topbar-meta" id="topbarMeta"></div>
+        <button class="icon-btn" id="printBtn" type="button" aria-label="打印或导出 PDF" title="打印 / 导出 PDF">🖨️</button>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="切换主题" title="切换主题">🌙</button>
+      </header>
+
+      <main class="view" id="view" tabindex="-1"></main>
+
+      <footer class="foot">
+        <span>工控 Linux 部署调试速查表 · 先定位，再复制，少敲错</span>
+        <span>内容与视图分离 · 改 Markdown 后跑 <code>node tools/build-data.mjs</code></span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- 智能搜索面板 -->
+  <div class="palette" id="palette" hidden>
+    <div class="palette-backdrop" data-close-palette></div>
+    <div class="palette-box" role="dialog" aria-modal="true" aria-label="智能搜索">
+      <div class="palette-head">
+        <span class="palette-prompt" aria-hidden="true">&gt;</span>
+        <input id="paletteInput" type="search" placeholder="搜命令、症状或分类，例如：相机 曝光 / dkms / 串口变号" autocomplete="off" spellcheck="false" aria-label="搜索命令、症状或分类">
+        <kbd>Esc</kbd>
+      </div>
+      <div class="palette-body" id="paletteBody"></div>
+      <div class="palette-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+        <span><kbd>Enter</kbd> 定位</span>
+        <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> 复制</span>
+        <span><kbd>Esc</kbd> 关闭</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
